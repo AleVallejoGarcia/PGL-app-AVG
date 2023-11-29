@@ -1,13 +1,15 @@
 import { ImageBackground, StyleSheet, Text, View, Pressable } from 'react-native'
-import { colors } from '../assets/color/Color';
+import { colors } from '../color/Color';
 import React from 'react'
+import Header from '../../components/Header';
 
 
 export default function Welcome() {
     return (
     
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/images/fondoApp.jpg')} resizeMode="cover" style={styles.image}>
+      <ImageBackground source={require('./assets/images/fondoApp.jpg')} resizeMode="cover" style={styles.image}>
+        <Header></Header>
         <View style={styles.textContainer}>
           <Text style={styles.text}>Welcome Back User</Text>
           <Pressable style={styles.login}>

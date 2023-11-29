@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Welcome from "./components/Welcome";
+import Welcome from "./assets/screens/Welcome";
 export default function App() {
   return (
     <View style={styles.container}>
