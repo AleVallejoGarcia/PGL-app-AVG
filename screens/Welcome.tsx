@@ -1,19 +1,19 @@
 import { ImageBackground, StyleSheet, Text, View, Pressable } from 'react-native'
-import { colors } from '../color/Color';
+import { colors } from '../assets/color/Color';
 import React from 'react'
-import Header from '../../components/Header';
+import { NavigationProp, ParamListBase } from '@react-navigation/native';
 
+type welcomeScreenProps = { navigation: NavigationProp<ParamListBase>}
 
-export default function Welcome() {
+export default function Welcome({navigation}: welcomeScreenProps) {
     return (
     
     <View style={styles.container}>
-      <ImageBackground source={require('./assets/images/fondoApp.jpg')} resizeMode="cover" style={styles.image}>
-        <Header></Header>
+      <ImageBackground source={require('./../assets/images/fondoApp.jpg')} resizeMode="cover" style={styles.image}>
         <View style={styles.textContainer}>
           <Text style={styles.text}>Welcome Back User</Text>
-          <Pressable style={styles.login}>
-            <Text style={styles.textLogin}>Login</Text>
+          <Pressable style={styles.login} onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.textLogin} >Login</Text>
           </Pressable>
         </View>
       </ImageBackground>
