@@ -1,12 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Welcome from "./screens/Welcome";
+import UserProvider from './providers/UserProvider';
 import CustomDrawer from './components/CustomDrawer';
 import { NavigationContainer } from '@react-navigation/native';
 export default function App() {
   return (
-    <NavigationContainer >
-      <CustomDrawer></CustomDrawer>
-    </NavigationContainer>
+    
+    <UserProvider>
+      <NavigationContainer >
+        <CustomDrawer></CustomDrawer>
+      </NavigationContainer>
+    </UserProvider>
+    
+    
+
   );
 }
 

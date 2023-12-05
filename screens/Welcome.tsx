@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   textContainer: {
-    marginTop: '30%',
     width: '70%',
     height: 220,
     borderRadius: 20,
