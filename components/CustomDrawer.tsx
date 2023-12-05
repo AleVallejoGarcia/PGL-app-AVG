@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import { colors } from '../assets/color/Color'
 import { DrawerNavigationOptions, createDrawerNavigator } from '@react-navigation/drawer';
@@ -14,12 +14,8 @@ const Drawer = createDrawerNavigator();
 
 const CustomDrawer = () => {
 
-
-
-
   const {isLogged, toggleIsLogged} = React.useContext(userContext)
   const drawerNavigatorScreenOptions: DrawerNavigationOptions = {
-    // header: ({navigation}) => <CustomHeader navigation={navigation}></CustomHeader>,
     headerTitle: 'AVG-APP',
     headerTitleAlign: 'center',
     headerTitleStyle: {
@@ -28,7 +24,6 @@ const CustomDrawer = () => {
     },
     headerStyle: {
       backgroundColor: colors.Black,
-
     },
     headerTintColor: colors.Cordovan,
     drawerItemStyle: {
@@ -36,16 +31,19 @@ const CustomDrawer = () => {
     },
     drawerActiveTintColor: colors.Dun,
     drawerActiveBackgroundColor: colors.Black,
-    drawerInactiveTintColor: colors.Dun,
-    drawerInactiveBackgroundColor: colors.Cordovan,
-    drawerType: 'front'
+    drawerInactiveTintColor: colors.Black,
+    drawerInactiveBackgroundColor: colors.Dun,
+    drawerType: 'front',
+    drawerStyle: {
+      backgroundColor: colors.Cordovan
+    }
   }
 
   return (
     <>
     {isLogged ? ( 
      <Drawer.Navigator initialRouteName='Home' screenOptions={drawerNavigatorScreenOptions}>
-        <Drawer.Screen name='WelcomeLogged' component={WelcomeLogged} />
+        <Drawer.Screen name='Welcome' component={WelcomeLogged} />
         <Drawer.Screen name='Portfolio' component={Portfolio} />
       </Drawer.Navigator>
     ):(

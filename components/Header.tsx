@@ -1,36 +1,35 @@
-import { View, Text, StyleSheet } from 'react-native'
-import { colors } from '../assets/color/Color';
-
-import React from 'react'
-
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { colors } from "../assets/color/Color";
 export default function Header() {
+
   return (
-    <View style={styles.headerContainer}>
-        <View style={styles.tittleContainer}>
-            <Text style={styles.headerText}>AVG-APP</Text>
-        </View>
+    <View  style={[styles.container,{backgroundColor: colors.Black}]}>
+      <View style={styles.containerTitle}>
+        <Text style={styles.title}>My Portfolio</Text>
+      </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
-    headerContainer: {
-        position: 'absolute',
-        top: 0,
-        width: '100%',
-        height: 100,
-        backgroundColor: colors.Black,
-    },
-    tittleContainer: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        marginVertical: 15,
-    },
-    headerText: {
-        color: colors.Dun,
-        textAlign: 'center',
-        fontSize: 30,
-        fontWeight: "bold",
-        textAlignVertical: "center",
-    }
+  container: {
+    height: "22%",
+    paddingTop: 50,
+    width: "100%",
+    color: 'white',
+    marginTop: 100
+  },
+  containerTitle: {
+    marginVertical: 15,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  title: {
+    textAlign: "center",
+    fontWeight: "bold",
+    textAlignVertical: "center",
+    fontSize: 30,
+    color: colors.Cordovan,
+  },
 });

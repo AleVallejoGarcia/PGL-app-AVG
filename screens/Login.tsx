@@ -4,9 +4,6 @@ import React from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { userContext } from '../contexts/UserContext';
 
-// import { useUserContext, useLoginToggleContext } from '../providers/UserProvider'
-
-
 
 export default function Login() {
   
