@@ -10,8 +10,8 @@ export default function QR() {
     <View style={styles.container}>
       <ImageBackground source={require('./../assets/images/fondoLogged.jpg')} resizeMode="cover" style={styles.image}>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>Mi Github</Text>
-          <QRCode value={"github.com/AleVallejoGarcia"} size={200} />
+          <Text style={styles.text}>Mi Repo</Text>
+          <QRCode value={"github.com/AleVallejoGarcia/PGL-app-AVG.git"} size={200} />
         </View>
       </ImageBackground>
     </View>
