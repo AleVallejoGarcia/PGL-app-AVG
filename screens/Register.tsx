@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { userContext } from '../contexts/UserContext';
 import { registerUser } from '../services/loginService';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
@@ -16,10 +15,6 @@ export default function Register() {
 
   const {user, setUserName} = React.useContext(userContext)
   const {isLogged, toggleIsLogged} = React.useContext(userContext)
-
-  const saveCookie = async (cookie: string) => {
-    await AsyncStorage.setItem('token', cookie);
-  } 
 
   const changeUser = (newUser: string) => {
     setUser(newUser)
@@ -47,15 +42,7 @@ export default function Register() {
     } else {
       registerUser(userToRegister, mailToRegister, passwordToRegister)
       .then((response) => {
-        if (response.status == 201) {
-          registeredUser()
-          let cookie = String(response.headers.get("Set-Cookie"))
-          saveCookie(cookie)
-          console.log(cookie);
-          
-        } else {
-          window.alert("Usuario ya registrado")
-        }
+        response.status == 201 ? registeredUser() : window.alert("Usuario ya registrado")
       }) 
       .catch((error) => {
         console.log(error);    

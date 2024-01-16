@@ -4,6 +4,7 @@ import React from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { userContext } from '../contexts/UserContext';
 import { loginUser } from '../services/loginService';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export default function Login() {
@@ -26,13 +27,24 @@ export default function Login() {
     changeUser(user)
   }
 
+  const saveCookie = async (cookie: string) => {
+    await AsyncStorage.setItem('token', cookie);
+  } 
+
   const fetchLogin = (userToLogin: string, passwordToLogin: string) => {
     if (userToLogin == "" || passwordToLogin == "") {
       window.alert("Error algún campo esta vacío")
     } else {
       loginUser(userToLogin, passwordToLogin)
       .then((response) => {
-        response.status == 200 ? logUser(userToLogin): window.alert("Usuario o contraseña incorrecto")
+        if (response.status == 200) {
+          logUser(userToLogin)
+          let cookie = String(response.headers.get("Set-Cookie"))
+          saveCookie(cookie)
+          console.log(cookie);
+        } else {
+          window.alert("Usuario o contraseña incorrecto")
+        }
       }) 
       .catch((error) => {
         console.log(error);    
