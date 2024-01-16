@@ -8,20 +8,19 @@ type userProviderProps = {
 const UserProvider = (props: userProviderProps) => {
 
   const { children } = props;
-
+  
   const [isLogged, setIsLogged] = React.useState(false)
   const [user, setUser] = React.useState("")
 
   const setUserName = (userName: string) => setUser(userName)
-
-
   const toggleIsLogged = () => setIsLogged(true);
-
+  const toggleLogOut = () => setIsLogged(false);
 
   const defaultValue: userContextType = {
     isLogged,
     user,
     toggleIsLogged,
+    toggleLogOut,
     setUserName
   }
 

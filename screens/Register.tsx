@@ -1,38 +1,45 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Pressable } from 'react-native'
 import { colors } from '../assets/color/Color'
-import React from 'react'
+import React, { useState } from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { userContext } from '../contexts/UserContext';
-import { loginUser } from '../services/loginService';
+import { registerUser } from '../services/loginService';
 
 
-export default function Login() {
+export default function Register() {
   
-  const {isLogged, toggleIsLogged} = React.useContext(userContext)
+  const [newUser, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const {user, setUserName} = React.useContext(userContext)
+  const {isLogged, toggleIsLogged} = React.useContext(userContext)
 
-  const [password, setPassword] = React.useState("")
-  
   const changeUser = (newUser: string) => {
+    setUser(newUser)
     setUserName(newUser)
+  }
+
+  const changeEmail = (newEmail: string) => {
+    setEmail(newEmail)
   }
 
   const changePassword = (newPassword: string) => {
     setPassword(newPassword)
   }
 
-  const logUser = (user: string) => {
+  const registeredUser = () => {
     toggleIsLogged()
-    changeUser(user)
+    window.alert("Se ha registrado")
   }
 
-  const fetchLogin = (userToLogin: string, passwordToLogin: string) => {
-    if (userToLogin == "" || passwordToLogin == "") {
+  const fetchRegister = (userToRegister: string, mailToRegister: string, passwordToRegister: string) => {
+    if (userToRegister == "" || mailToRegister == "" || passwordToRegister == "") {
       window.alert("Error algún campo esta vacío")
     } else {
-      loginUser(userToLogin, passwordToLogin)
-      .then((response) => {
-        response.status == 200 ? logUser(userToLogin): window.alert("Usuario o contraseña incorrecto")
+      registerUser(userToRegister, mailToRegister, passwordToRegister)
+      .then((status) => {
+        status == 201 ? registeredUser(): window.alert("Usuario ya registrado")
       }) 
       .catch((error) => {
         console.log(error);    
@@ -41,20 +48,24 @@ export default function Login() {
     }
   }
 
+  
+
   return (
     <View>
       <ImageBackground source={require('./../assets/images/fondoApp.jpg')} resizeMode="cover" style={styles.image}>
         <View style={styles.textContainer}>
           <View>
-            <Image source={require('./../assets/images/hoja-de-arce.png')}></Image>
+            <Image source={require('./../assets/images/bonsai.png')}></Image>
           </View>
           <View style={styles.formContainer}>
+            <Text style={styles.textoLogin}>Email</Text>
+            <TextInput onChangeText={(newEmail) => changeEmail(newEmail)} style={styles.input} placeholder='Introduzca el email'/>
             <Text style={styles.textoLogin}>Usuario</Text>
             <TextInput onChangeText={(newUser) => changeUser(newUser)} style={styles.input} placeholder='Introduzca el usuario'/>
             <Text style={styles.textoLogin}>Contraseña</Text>
             <TextInput onChangeText={(newPassword) => changePassword(newPassword)} style={styles.input} secureTextEntry={true} placeholder='Introduzca la contraseña'/>
-            <Pressable style={styles.login} onPress={() => fetchLogin(user, password)}>
-              <Text style={styles.textLogin} >Log in</Text>
+            <Pressable style={styles.login}>
+              <Text style={styles.textLogin} onPress={() => fetchRegister(newUser, email, password)} >Sign in</Text>
             </Pressable>
           </View>
         </View>
@@ -72,7 +83,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     width: '70%',
-    height: 340,
+    height: 450,
     borderRadius: 20,
     alignItems: 'center',
     backgroundColor: colors.Cordovan,

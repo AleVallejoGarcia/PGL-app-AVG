@@ -1,12 +1,14 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { colors } from '../assets/color/Color'
 import { DrawerNavigationOptions, createDrawerNavigator } from '@react-navigation/drawer';
 import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
 import { userContext } from '../contexts/UserContext';
-import WelcomeLogged from '../screens/WelcomeLogged';
 import Portfolio from '../screens/Portfolio';
+import Register from '../screens/Register';
+import { logOutUser } from '../services/loginService';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const Drawer = createDrawerNavigator();
@@ -14,8 +16,36 @@ const Drawer = createDrawerNavigator();
 
 const CustomDrawer = () => {
 
-  const {isLogged, toggleIsLogged} = React.useContext(userContext)
+  const {isLogged, toggleIsLogged, toggleLogOut} = React.useContext(userContext)
+
+  const fetchLogOut = () => {
+    logOutUser()
+      .then((status) => {
+        status == 200 ? toggleLogOut() : window.alert("Error")
+      }) 
+      .catch((error) => {
+        console.log(error);    
+      })
+   }
+  
   const drawerNavigatorScreenOptions: DrawerNavigationOptions = {
+    headerRight: () => (
+      <>
+        {isLogged ? (
+        <View>
+          <Pressable onPress={() => fetchLogOut()}>
+          <MaterialCommunityIcons
+              name={"logout"}
+              size={30}
+              color={colors.Cordovan}
+              />
+          </Pressable>
+        </View>
+        ) : (
+        <View/>
+        )}
+      </>
+    ),
     headerTitle: 'AVG-APP',
     headerTitleAlign: 'center',
     headerTitleStyle: {
@@ -42,13 +72,14 @@ const CustomDrawer = () => {
   return (
     <>
     {isLogged ? ( 
-     <Drawer.Navigator initialRouteName='Home' screenOptions={drawerNavigatorScreenOptions}>
-        <Drawer.Screen name='Welcome' component={WelcomeLogged} />
+      <Drawer.Navigator initialRouteName='Home' screenOptions={drawerNavigatorScreenOptions}>
+        <Drawer.Screen name='Welcome' component={Welcome} />
         <Drawer.Screen name='Portfolio' component={Portfolio} />
       </Drawer.Navigator>
     ):(
       <Drawer.Navigator initialRouteName='Home' screenOptions={drawerNavigatorScreenOptions}>
         <Drawer.Screen name='Welcome' component={Welcome} />
+        <Drawer.Screen name='Register' component={Register}/>
         <Drawer.Screen name='Login' component={Login} />
       </Drawer.Navigator>
     ) 
