@@ -3,7 +3,7 @@ const REGISTER_PATH = '/register';
 const LOGIN_PATH = '/login';
 const LOGOUT_PATH = '/logout';
 
-export const registerUser = async (name: string, email: string, password: string): Promise<Number> => {
+export const registerUser = async (name: string, email: string, password: string): Promise<Response> => {
     const response =  await fetch(`${USERS_API_URL}${REGISTER_PATH}`, {
         method: 'POST',
         headers: {Accept: 'application/json','Content-Type': 'application/json'},
@@ -13,7 +13,7 @@ export const registerUser = async (name: string, email: string, password: string
             password: password
         })
     })
-    return response.status
+    return response
 }
 
 export const loginUser = async (name: string, password: string): Promise<Response> => {

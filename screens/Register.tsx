@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { userContext } from '../contexts/UserContext';
 import { registerUser } from '../services/loginService';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 
 export default function Register() {
@@ -15,10 +17,15 @@ export default function Register() {
   const {user, setUserName} = React.useContext(userContext)
   const {isLogged, toggleIsLogged} = React.useContext(userContext)
 
+  const saveCookie = async (cookie: string) => {
+    await AsyncStorage.setItem('token', cookie);
+  } 
+
   const changeUser = (newUser: string) => {
     setUser(newUser)
     setUserName(newUser)
   }
+
 
   const changeEmail = (newEmail: string) => {
     setEmail(newEmail)
@@ -31,6 +38,7 @@ export default function Register() {
   const registeredUser = () => {
     toggleIsLogged()
     window.alert("Se ha registrado")
+    
   }
 
   const fetchRegister = (userToRegister: string, mailToRegister: string, passwordToRegister: string) => {
@@ -38,8 +46,16 @@ export default function Register() {
       window.alert("Error algún campo esta vacío")
     } else {
       registerUser(userToRegister, mailToRegister, passwordToRegister)
-      .then((status) => {
-        status == 201 ? registeredUser(): window.alert("Usuario ya registrado")
+      .then((response) => {
+        if (response.status == 201) {
+          registeredUser()
+          let cookie = String(response.headers.get("Set-Cookie"))
+          saveCookie(cookie)
+          console.log(cookie);
+          
+        } else {
+          window.alert("Usuario ya registrado")
+        }
       }) 
       .catch((error) => {
         console.log(error);    

@@ -9,6 +9,7 @@ import Portfolio from '../screens/Portfolio';
 import Register from '../screens/Register';
 import { logOutUser } from '../services/loginService';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const Drawer = createDrawerNavigator();
@@ -17,11 +18,14 @@ const Drawer = createDrawerNavigator();
 const CustomDrawer = () => {
 
   const {isLogged, toggleIsLogged, toggleLogOut} = React.useContext(userContext)
-
+  const removeCookie = async () => {
+    await AsyncStorage.removeItem('token');
+  } 
   const fetchLogOut = () => {
     logOutUser()
       .then((status) => {
         status == 200 ? toggleLogOut() : window.alert("Error")
+        removeCookie()
       }) 
       .catch((error) => {
         console.log(error);    
