@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   login: {
     padding: 10,
-    paddingHorizontal: 35,
+    paddingHorizontal: 25,
     borderRadius: 30,
     backgroundColor: colors.Dun, 
     marginRight: 5,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   signin: {
     padding: 10,
-    paddingHorizontal: 35,
+    paddingHorizontal: 25,
     borderRadius: 30,
     backgroundColor: colors.Dun, 
   },
@@ -91,5 +91,6 @@ const styles = StyleSheet.create({
     width: 240,
     alignItems: 'center',
     alignContent: 'space-between',
+    marginLeft: 35
   }
 });
