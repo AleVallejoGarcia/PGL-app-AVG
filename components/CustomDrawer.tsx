@@ -10,6 +10,7 @@ import Register from '../screens/Register';
 import { logOutUser } from '../services/loginService';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Recorder from '../screens/Recorder';
 
 
 const Drawer = createDrawerNavigator();
@@ -78,6 +79,7 @@ const CustomDrawer = () => {
     {isLogged ? ( 
       <Drawer.Navigator initialRouteName='Home' screenOptions={drawerNavigatorScreenOptions}>
         <Drawer.Screen name='Welcome' component={Welcome} />
+        <Drawer.Screen name='Recorder' component={Recorder}/>
         <Drawer.Screen name='Portfolio' component={Portfolio} />
       </Drawer.Navigator>
     ):(
